@@ -6,14 +6,14 @@ OPM=./OPM
 FSGRAPH=./FSgraph
 NHEAP=./NHeap
 
-all: $(ALGORITHMS)/EdmondsKarp $(OPM)/OPM
+all: clean $(OPM)/myOPM $(OPM)/OPM 
 
-$(ALGORITHMS)/EdmondsKarp: $(ALGORITHMS)/EdmondsKarp.cpp $(ALGORITHMS)/EdmondsKarp.h
-	g++ $(ALGORITHMS)/EdmondsKarp.cpp $(NHEAP)/NHeap.cpp $(FSGRAPH)/FSgraph.cpp -o $(ALGORITHMS)/EdmondsKarp
+$(OPM)/myOPM: $(ALGORITHMS)/EdmondsKarp.cpp $(ALGORITHMS)/EdmondsKarp.h
+	g++ -O3 $(OPM)/myOPM.cpp $(ALGORITHMS)/EdmondsKarp.cpp $(NHEAP)/NHeap.cpp $(FSGRAPH)/FSgraph.cpp -o $(OPM)/myOPM
 
 $(OPM)/OPM: $(OPM)/opm.cpp
 	g++ $(OPM)/opm.cpp -std=c++0x -lboost_program_options -o $(OPM)/OPM
 
 
 clean:
-	rm -rf $(ALGORITHMS)/EdmondsKarp
+	rm -rf $(OPM)/myOPM

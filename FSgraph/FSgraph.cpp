@@ -305,58 +305,19 @@ void FSgraph::print()
         printf("\n");
     }
 }
-void FSgraph::printT4()
+void FSgraph::printOPM()
 {
-    printf("Forward Star Graph\n");
-    printf("MaxCapacity: %d\n",maxCapacity);
-    printf("Vertices: %d\n",numVerts);
-    printf("Edges: %d\n",numEdges);
-    unsigned u, edge;
-    for(unsigned i=0;i<h;i++)
-    {
-        for(unsigned j=0;j<w;j++)
-        {
-            u=i*w+j;
-            edge=findEdge(u+1,target);
-
-            if(edge == 0)
-            {
-                edge=findEdge(source,u+1);
-                printf("+");
-                if(edge != 0 && edges[edge-1].residual < edges[edge-1].weight)
-                    printf("1 ");
-                else
-                    printf("0 ");
-            }
-            else
-            {
-                printf("-");
-                if(edge != 0 && edges[edge-1].residual == edges[edge-1].weight)
-                    printf("1 ");
-                else
-                    printf("0 ");
-            }
-        }
-        printf("\n");
-    }
-}
-void FSgraph::printT4b()
-{
-    printf("Forward Star Graph\n");
-    printf("MaxCapacity: %d\n",maxCapacity);
-    printf("Vertices: %d\n",numVerts);
-    printf("Edges: %d\n",numEdges);
+    int profit;
     unsigned u, edge;
     opm = (bool*) malloc(sizeof(bool)*w*h + 2);
     for(unsigned i=0;i<w*h;i++)
         opm[i] = false;
 
-    
-
     std::stack<unsigned> st;
     st.push(source);
 
     opm[source-1] = true;
+    profit = 0;
 
     while(!st.empty())
     {
@@ -373,18 +334,36 @@ void FSgraph::printT4b()
             if((!opm[neighbor-1])&&(wht>0))
             {
                 opm[neighbor-1] = true;
+                unsigned e = findEdge(source,neighbor);
+                if(edges[e].target == neighbor)
+                {
+                    profit+=edges[e].weight;
+                }
+                else
+                {
+                    e = findEdge(neighbor,target);
+                    if(edges[e].target == target)
+                    {
+                        profit-=edges[e].weight;
+                    }
+                }
                 st.push(neighbor);
             }
         }
     }
 
+    std::cout << w << " " <<  h << std::endl;
     for(unsigned i=0;i<h;i++)
     {
         for(unsigned j=0;j<w;j++)
             if(opm[i*w+j])
-                printf("1");
+                std::cout << "1 ";
+                //printf("1");
             else
-                printf("0");
-        printf("\n");
+                std::cout << "0 ";
+                //printf("0");
+        std::cout << std::endl;        
     }
+
+    std::cerr << profit << std::endl;
 }

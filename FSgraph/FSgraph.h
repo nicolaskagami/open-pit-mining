@@ -1,6 +1,7 @@
 //Author: Nicolas Silveira Kagami
 //Slightly different than T1's 
 //Modified to hold local residual and global source and target
+//Modified to calculate Open Pit Mining 
 #include<stdio.h>
 #include<stdlib.h>
 #include<string>
@@ -44,9 +45,9 @@ class FSgraph
         unsigned source;
         unsigned target;
         unsigned maxCapacity;
+
         unsigned w,h;
-        void printT4();
-        void printT4b();
+        void printOPM();
         bool * opm;
         
 };

@@ -133,13 +133,3 @@ EdmondsKarp::~EdmondsKarp()
     free(visited);
     free(distances);
 }
-int main(int argc, char ** argv)
-{
-    FSgraph gr(std::cin);
-    EdmondsKarp EK(&gr);
-    std::cerr << "EK " << EK.graph->numVerts << " " << EK.graph->numEdges/2 << " " << EK.paths_searched << " " << EK.expanded_verts << std::endl;
-    std::cout << EK.flow << std::endl;
-    gr.printT4b();
-    gr.print();
-    return 0;
-}
