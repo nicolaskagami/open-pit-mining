@@ -6,6 +6,7 @@ RESULTS="./Results"
 
 for file in ${TESTS}/*.ins;
 do
-    SOLUTION="${RESULTS}/$(basename ${file} .ins).sol"
-    ${EXEC} < ${file} > ${SOLUTION}
+    TEST="${RESULTS}/$(basename ${file} .ins)"
+    ${EXEC} < ${file} > ${TEST}.sol
+    ./OPM/OPM --ins $file --sol ${TEST}.sol --pbm ${TEST}.pbm
 done

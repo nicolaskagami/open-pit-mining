@@ -1,9 +1,9 @@
 
-#include "../MaxFlow/EdmondsKarp.h"
+#include "../MaxFlow/FordFulkerson.h"
 int main(int argc, char ** argv)
 {
     FSgraph gr(std::cin);
-    EdmondsKarp EK(&gr);
+    FordFulkerson FF(&gr);
     gr.printOPM();
     return 0;
 }
