@@ -35,24 +35,24 @@ FordFulkerson::FordFulkerson(FSgraph * g)
 }
 unsigned FordFulkerson::getResidual(unsigned u, unsigned v)
 { 
-    unsigned i = graph->findEdge(u,v); 
-    if(graph->edges[i].target == v)    
+    int i = graph->findEdge(u,v); 
+    if(i>=0)    
     {
         return graph->edges[i].residual;
     }
 }
 void FordFulkerson::subResidual(unsigned u, unsigned v,unsigned subtraction)
 { 
-    unsigned i = graph->findEdge(u,v); 
-    if(graph->edges[i].target == v)    
+    int i = graph->findEdge(u,v); 
+    if(i>=0)    
     {
          graph->edges[i].residual-=subtraction;
     }
 }
 void FordFulkerson::addResidual(unsigned u, unsigned v,unsigned addition)
 { 
-    unsigned i = graph->findEdge(u,v); 
-    if(graph->edges[i].target == v)    
+    int i = graph->findEdge(u,v); 
+    if(i>=0)    
     {
          graph->edges[i].residual+=addition;
     }

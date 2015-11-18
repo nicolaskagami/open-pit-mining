@@ -279,7 +279,7 @@ void FSgraph::proposeEdge(unsigned vert, unsigned tgt,unsigned wht)
    }
    addEdge(vert,tgt,wht);
 }
-unsigned FSgraph::findEdge(unsigned u, unsigned v)
+int FSgraph::findEdge(unsigned u, unsigned v)
 {
    unsigned i,j;
    for(i=vertices[u-1].index,j=0;j<vertices[u-1].edgeNum;j++)
@@ -287,7 +287,7 @@ unsigned FSgraph::findEdge(unsigned u, unsigned v)
         if(edges[i+j].target == v)
             return i+j;
    }
-   return 0;
+   return -1;
 }
 void FSgraph::print()
 {
@@ -334,15 +334,15 @@ void FSgraph::printOPM()
             if((!opm[neighbor-1])&&(wht>0))
             {
                 opm[neighbor-1] = true;
-                unsigned e = findEdge(source,neighbor);
-                if(edges[e].target == neighbor)
+                int e = findEdge(source,neighbor);
+                if(e>=0)
                 {
                     profit+=edges[e].weight;
                 }
                 else
                 {
                     e = findEdge(neighbor,target);
-                    if(edges[e].target == target)
+                    if(e>=0)
                     {
                         profit-=edges[e].weight;
                     }
@@ -351,7 +351,6 @@ void FSgraph::printOPM()
             }
         }
     }
-
     std::cout << w << " " <<  h << std::endl;
     for(unsigned i=0;i<h;i++)
     {
@@ -364,6 +363,5 @@ void FSgraph::printOPM()
                 //printf("0");
         std::cout << std::endl;        
     }
-
     std::cerr << profit << std::endl;
 }

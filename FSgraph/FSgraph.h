@@ -41,7 +41,7 @@ class FSgraph
         void print();
 
         void proposeEdge(unsigned vert,unsigned tgt,unsigned wht);
-        unsigned findEdge(unsigned u, unsigned v);
+        int findEdge(unsigned u, unsigned v);
         unsigned source;
         unsigned target;
         unsigned maxCapacity;

@@ -39,24 +39,24 @@ EdmondsKarp::EdmondsKarp(FSgraph * g)
 }
 unsigned EdmondsKarp::getResidual(unsigned u, unsigned v)
 { 
-    unsigned i = graph->findEdge(u,v); 
-    if(graph->edges[i].target == v)    
+    int i = graph->findEdge(u,v); 
+    if(i>=0)    
     {
         return graph->edges[i].residual;
     }
 }
 void EdmondsKarp::subResidual(unsigned u, unsigned v,unsigned subtraction)
 { 
-    unsigned i = graph->findEdge(u,v); 
-    if(graph->edges[i].target == v)    
+    int i = graph->findEdge(u,v); 
+    if(i>=0)    
     {
          graph->edges[i].residual-=subtraction;
     }
 }
 void EdmondsKarp::addResidual(unsigned u, unsigned v,unsigned addition)
 { 
-    unsigned i = graph->findEdge(u,v); 
-    if(graph->edges[i].target == v)    
+    int i = graph->findEdge(u,v); 
+    if(i>=0)    
     {
          graph->edges[i].residual+=addition;
     }
