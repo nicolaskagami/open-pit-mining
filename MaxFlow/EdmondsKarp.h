@@ -20,8 +20,8 @@ class EdmondsKarp
         void printPath();
         EdmondsKarp(FSgraph * g);
         unsigned getResidual(unsigned u, unsigned v);
-        void subResidual(unsigned u, unsigned v,unsigned subtraction);
-        void addResidual(unsigned u, unsigned v,unsigned addition);
+        void subResidual(unsigned u, unsigned v, unsigned subtraction);
+        void addResidual(unsigned u, unsigned v, unsigned addition);
         ~EdmondsKarp();
 
 };
