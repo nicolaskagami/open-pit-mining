@@ -1,9 +1,6 @@
 //Author: Nicolas Silveira Kagami
-//Slightly different than T1's 
 //Adding findEdge and Reflexive edges with cost (which means capacity now) 0
-//New constructor just for T4
 #include "FSgraph.h"
-
 
 FSgraph::FSgraph(unsigned vertNum, unsigned edgeNum)
 {
@@ -14,92 +11,8 @@ FSgraph::FSgraph(unsigned vertNum, unsigned edgeNum)
     edges = (EDGE*) malloc(sizeof(EDGE)*edgeNum);
     vertices = (VERT*) malloc(sizeof(VERT)*vertNum);
 }
-/*
-FSgraph::FSgraph(std::istream& in)
-{
-    std::string line="", dummy;
-    unsigned n,m;
 
-    while (line.substr(0,5) != "p max")
-    {
-        getline(in,line);
-    }
-    std::stringstream linestr;
-    linestr.str(line);
-    linestr >> dummy >> dummy >> n >> m;
-
-    //Init
-    numVerts = n;
-    numEdges = 2*m;
-    currentEdge = 0;
-    currentVert = 0;
-    edges = (EDGE*) malloc(sizeof(EDGE)*numEdges);
-    vertices = (VERT*) malloc(sizeof(VERT)*numVerts);
-    unsigned i =0;
-    for(i=0;i<numVerts;i++)
-    {
-        vertices[i].edgeNum=0;
-        vertices[i].index=0;
-    }
-    source=0;
-    target=0;
-
-    std::stringstream buffer;
-    buffer << in.rdbuf();
-    i=0;
-    while (i<m)
-    {
-        if(!std::getline(buffer, line))
-        {
-            printf("Parsing Error\n");
-            exit(1);
-        }
-        if (line.substr(0,2) == "a ") 
-        {
-            std::stringstream arc(line);
-            unsigned u,v,w;
-            char ac;
-            arc >> ac >> u >> v >> w;
-            preallocate(u,v);
-            preallocate(v,u);//Added for T3 Advanced algs
-            i++;
-        }
-        if (line.substr(0,2) == "n ") 
-        {
-            std::stringstream arc(line);
-            unsigned u;
-            char ac,n;
-            arc >> ac >> u >> n;
-            if(n == 's')
-                source = u;
-            if(n == 't')
-                target = u;
-        }
-    }
-    indexify();
-    buffer.seekg(0);
-    i=0;
-    while (i<m)
-    {
-        if(!std::getline(buffer, line))
-        {
-            printf("Parsing Error\n");
-            exit(1);
-        }
-        if (line.substr(0,2) == "a ") 
-        {
-            std::stringstream arc(line);
-            unsigned u,v,w;
-            char ac;
-            arc >> ac >> u >> v >> w;
-            proposeEdge(u,v,w);
-            proposeEdge(v,u,0);
-            i++;
-        }
-    }
-
-}
-*/
+// Dedicated constructor for Open Pit Mining
 FSgraph::FSgraph(std::istream& in)
 {
     std::string line="", dummy;
@@ -109,7 +22,7 @@ FSgraph::FSgraph(std::istream& in)
     linestr.str(line);
     linestr >> w >> h;
 
-    //Init
+    // w*h cells + source and sink
     numVerts = w*h + 2;
     numEdges = 2*(h-1)*(3*w-2) + w*h;
     currentEdge = 0;
@@ -117,20 +30,20 @@ FSgraph::FSgraph(std::istream& in)
     edges = (EDGE*) malloc(sizeof(EDGE)*numEdges);
     vertices = (VERT*) malloc(sizeof(VERT)*numVerts);
 
-    unsigned i =0,j=0;
+    unsigned i = 0,j= 0;
     maxCapacity = 0;
 
-    for(i=0;i<numVerts;i++)
+    for(i = 0; i < numVerts; i++)
     {
         vertices[i].edgeNum=0;
         vertices[i].index=0;
     }
-    source=numVerts - 1;
-    target=numVerts;
+    source = numVerts - 1;
+    target = numVerts;
 
     std::stringstream buffer;
     buffer << in.rdbuf();
-    for(i=0;i<h;i++)
+    for(i = 0; i < h; i++)
     {
         if(!std::getline(buffer, line))
         {
@@ -140,42 +53,42 @@ FSgraph::FSgraph(std::istream& in)
         std::stringstream arc(line);
         int weight;
         unsigned u,v;
-        for(j=0;j<w;j++)
+        for(j = 0; j < w; j++)
         {
-            u=i*w+j;
+            u = i*w + j;
             arc >> weight;
             if(weight>0)
             {
                 maxCapacity += weight;
-                preallocate(source,u+1);
+                preallocate(source, u + 1);
             }
             else
             {
                 maxCapacity -= weight; //??
-                preallocate(u+1,target);
+                preallocate(u + 1, target);
             }
-            if(i<(h-1))
+            if(i < (h-1))
             {
-                v=u+w;
-                if(j!=0)
+                v = u + w;
+                if(j != 0)
                 {
-                    preallocate(u+1,v);
-                    preallocate(v,u+1);
+                    preallocate(u + 1, v);
+                    preallocate(v, u + 1);
                 }
-                preallocate(u+1,v+1);
-                preallocate(v+1,u+1);
-                if(j!= (w-1))
+                preallocate(u + 1, v + 1);
+                preallocate(v + 1, u + 1);
+                if(j != (w-1))
                 {
-                    preallocate(u+1,v+2);
-                    preallocate(v+2,u+1);
+                    preallocate(u + 1,v + 2);
+                    preallocate(v + 2,u + 1);
                 }
             }
         }
     }
     indexify();
     buffer.seekg(0);
-    i=0;
-    for(i=0;i<h;i++)
+    i = 0;
+    for(i = 0; i < h; i++)
     {
         if(!std::getline(buffer, line))
         {
@@ -185,33 +98,33 @@ FSgraph::FSgraph(std::istream& in)
         std::stringstream arc(line);
         int weight;
         unsigned u,v;
-        for(j=0;j<w;j++)
+        for(j = 0; j < w; j++)
         {
             arc >> weight;
-            u=i*w+j;
-            if(weight>0)
+            u = i*w + j;
+            if(weight > 0)
             {
-                proposeEdge(source,u+1,weight);
+                proposeEdge(source, u + 1, weight);
             }
             else
             {
-                proposeEdge(u+1,target,-weight);
+                proposeEdge(u + 1, target, -weight);
             }
 
-            if(i<(h-1))
+            if(i < (h - 1))
             {
-                v=u+w;
-                if(j!= 0)
+                v = u + w;
+                if(j != 0)
                 {
-                    proposeEdge(u+1,v,0);
-                    proposeEdge(v,u+1,maxCapacity);
+                    proposeEdge(u + 1, v, 0);
+                    proposeEdge(v, u + 1, maxCapacity);
                 }
-                proposeEdge(u+1,v+1,0);
-                proposeEdge(v+1,u+1,maxCapacity);
-                if(j!= (w-1))
+                proposeEdge(u + 1, v + 1, 0);
+                proposeEdge(v + 1, u + 1, maxCapacity);
+                if(j != (w - 1))
                 {
-                    proposeEdge(u+1,v+2,0);
-                    proposeEdge(v+2,u+1,maxCapacity);
+                    proposeEdge(u + 1, v + 2, 0);
+                    proposeEdge(v + 2, u + 1, maxCapacity);
                 }
             }
         }
