@@ -1,3 +1,4 @@
+//Author: Nicolas Silveira Kagami
 
 #include "FordFulkerson.h"
 

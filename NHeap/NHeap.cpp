@@ -21,7 +21,7 @@ void NHeap<T>::print()
 {
     printf("Heap (%d/%d):",occupation,capacity);
     unsigned i;
-    for(i = 0;i<occupation;i++)
+    for(i = 0; i < occupation; i++)
     {
         printf(" %d,",heap[i].key);
         std::cout << heap[i].element;
@@ -67,7 +67,7 @@ unsigned NHeap<T>::resize(unsigned newCapacity)
 template<typename T>
 void NHeap<T>::heapifyup(unsigned p)
 {
-    while((p>0)&&(p<occupation)&&(heap[FATHER(p)].key>heap[p].key))
+    while((p > 0) && (p < occupation) && (heap[FATHER(p)].key > heap[p].key))
     {
         swap(heap[FATHER(p)],heap[p]);
         p = FATHER(p);
@@ -79,17 +79,17 @@ void NHeap<T>::heapifydown(unsigned p)
     unsigned smallestSon;
     unsigned smallestValue;
     unsigned i,j;
-    while(FIRSTSON(p)<occupation)
+    while(FIRSTSON(p) < occupation)
     {
-        for(j=FIRSTSON(p),i = 0,smallestSon = j,smallestValue = heap[j].key;(i<N)&&((i+j)<occupation);i++)
+        for(j = FIRSTSON(p), i = 0, smallestSon = j, smallestValue = heap[j].key; (i < N) && ((i + j) < occupation); i++)
         {
-            if(heap[(i+j)].key<smallestValue)
+            if(heap[(i + j)].key < smallestValue)
             {
-                smallestSon = i+j;
-                smallestValue = heap[(i+j)].key;
+                smallestSon = i + j;
+                smallestValue = heap[(i + j)].key;
             }
         }
-        if(smallestValue<heap[p].key)
+        if(smallestValue < heap[p].key)
         {
             swap(heap[p],heap[smallestSon]);
             p=smallestSon;
@@ -115,8 +115,8 @@ void NHeap<T>::deleteMin()
 {
     if(occupation>0)
     {
-        heap[0]=heap[--occupation];
-        if((INITIALSIZE<occupation)&&(occupation<capacity/2))
+        heap[0] = heap[--occupation];
+        if((INITIALSIZE < occupation) && (occupation < capacity/2))
             resize(capacity/2);
         heapifydown(0);
     }
@@ -124,7 +124,7 @@ void NHeap<T>::deleteMin()
 template<typename T>
 void NHeap<T>::update(T t,unsigned newKey)//newKey < key!
 {
-    for(unsigned i=0;i<occupation;i++)
+    for(unsigned i = 0; i < occupation; i++)
     {
         if(heap[i].element == t)
         {

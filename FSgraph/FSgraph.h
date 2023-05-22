@@ -1,5 +1,4 @@
 //Author: Nicolas Silveira Kagami
-//Slightly different than T1's 
 //Modified to hold local residual and global source and target
 //Modified to calculate Open Pit Mining 
 #include<stdio.h>
@@ -15,12 +14,13 @@ typedef struct FSedge
     unsigned target;
     unsigned weight;
     unsigned residual;
-}EDGE;
+} EDGE;
+
 typedef struct FSvert
 {
     unsigned index;
     unsigned edgeNum;
-}VERT;
+} VERT;
 
 class FSgraph
 {
@@ -37,10 +37,10 @@ class FSgraph
         void preallocate(unsigned vert, unsigned tgt);
         void indexify();
         ~FSgraph();
-        void addEdge(unsigned vert,unsigned tgt,unsigned wht);
+        void addEdge(unsigned vert, unsigned tgt, unsigned wht);
         void print();
 
-        void proposeEdge(unsigned vert,unsigned tgt,unsigned wht);
+        void proposeEdge(unsigned vert, unsigned tgt, unsigned wht);
         int findEdge(unsigned u, unsigned v);
         unsigned source;
         unsigned target;
