@@ -9,58 +9,57 @@ FordFulkerson::FordFulkerson(FSgraph * g)
     parent = (unsigned *) malloc(g->numVerts*sizeof(unsigned));
     visited = (bool *) calloc(graph->numVerts,sizeof(bool));
 
-    //Find path
     unsigned u,p;
     flow = 0;
-    expanded_verts=0;
-    paths_searched=0;
+    expanded_verts = 0;
+    paths_searched = 0;
     while(findPath())
     {
         paths_searched++;
-        unsigned pathFlow = getResidual(parent[tgt-1],tgt);
-        for(p=tgt;p!=src;p=parent[p-1])
+        unsigned pathFlow = getResidual(parent[tgt-1], tgt);
+        for(p = tgt; p != src; p = parent[p-1])
         {
             u = parent[p-1];
-            if(getResidual(u,p)<pathFlow)
-                pathFlow=getResidual(u,p);
+            if(getResidual(u,p) < pathFlow)
+                pathFlow = getResidual(u,p);
         } 
-        for(p=tgt;p!=src;p=parent[p-1])
+        for(p = tgt; p != src; p = parent[p-1])
         {
             u = parent[p-1];
             subResidual(u,p,pathFlow);
             addResidual(p,u,pathFlow);
         }
-        flow+=pathFlow;
+        flow += pathFlow;
     }
 }
 unsigned FordFulkerson::getResidual(unsigned u, unsigned v)
 { 
     int i = graph->findEdge(u,v); 
-    if(i>=0)    
+    if(i >= 0)    
     {
         return graph->edges[i].residual;
     }
 }
-void FordFulkerson::subResidual(unsigned u, unsigned v,unsigned subtraction)
+void FordFulkerson::subResidual(unsigned u, unsigned v, unsigned subtraction)
 { 
     int i = graph->findEdge(u,v); 
-    if(i>=0)    
+    if(i >= 0)    
     {
-         graph->edges[i].residual-=subtraction;
+         graph->edges[i].residual -= subtraction;
     }
 }
-void FordFulkerson::addResidual(unsigned u, unsigned v,unsigned addition)
+void FordFulkerson::addResidual(unsigned u, unsigned v, unsigned addition)
 { 
     int i = graph->findEdge(u,v); 
-    if(i>=0)    
+    if(i >= 0)    
     {
-         graph->edges[i].residual+=addition;
+         graph->edges[i].residual += addition;
     }
 }
 void FordFulkerson::printPath()
 {
     printf("Path:");
-    for(unsigned p=tgt;p!=src;p=parent[p-1])
+    for(unsigned p = tgt; p != src; p = parent[p-1])
     {
         printf("%d,",p);
     }
@@ -71,7 +70,7 @@ bool FordFulkerson::findPath()
     std::stack<unsigned> st;
     st.push(src);
 
-    for(unsigned i=0;i<graph->numVerts;i++)
+    for(unsigned i = 0; i < graph->numVerts; i++)
     {
         visited[i]=false;
         //parent[i] = (unsigned) 1;
@@ -87,11 +86,11 @@ bool FordFulkerson::findPath()
         {
             return true;
         }
-        for(unsigned b=graph->vertices[p-1].index,i=0;i<graph->vertices[p-1].edgeNum;i++)
+        for(unsigned b = graph->vertices[p-1].index, i = 0; i < graph->vertices[p-1].edgeNum; i++)
         {
             unsigned neighbor = graph->edges[b+i].target;
-            unsigned wht = graph->edges[b+i].residual;
-            if((!visited[neighbor-1])&&(wht>0))
+            unsigned weight = graph->edges[b+i].residual;
+            if((!visited[neighbor-1]) && (weight > 0))
             {
                 visited[neighbor-1] = true;
                 parent[neighbor-1] = p;
