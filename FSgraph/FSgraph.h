@@ -46,7 +46,7 @@ class FSgraph
         unsigned target;
         unsigned maxCapacity;
 
-        unsigned w,h;
+        unsigned width, height;
         void printOPM();
         bool * opm;
         
