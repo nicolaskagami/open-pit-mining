@@ -12,11 +12,11 @@ FordFulkerson::FordFulkerson(FSgraph * g)
 
     unsigned u,p;
     flow = 0;
-    expanded_verts = 0;
-    paths_searched = 0;
+    expandedVerts = 0;
+    pathsSearched = 0;
     while(findPath())
     {
-        paths_searched++;
+        pathsSearched++;
         unsigned pathFlow = getResidual(parent[tgt-1], tgt);
         for(p = tgt; p != src; p = parent[p-1])
         {
@@ -80,7 +80,7 @@ bool FordFulkerson::findPath()
 
     while(!st.empty())
     {
-        expanded_verts++;
+        expandedVerts++;
         unsigned p = st.top();
         st.pop();
         if(p == tgt) 

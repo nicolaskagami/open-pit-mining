@@ -14,8 +14,8 @@ class FordFulkerson
         unsigned flow;
         bool * visited;
 
-        unsigned expanded_verts;
-        unsigned paths_searched;
+        unsigned expandedVerts;
+        unsigned pathsSearched;
 
         bool findPath();
         void printPath();
