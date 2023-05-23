@@ -13,13 +13,13 @@ EdmondsKarp::EdmondsKarp(FSgraph * g)
 
     //Find path
     unsigned u,p;
-    expanded_verts =0;
-    paths_searched = 0;
+    expandedVerts =0;
+    pathsSearched = 0;
     flow = 0;
 
     while(findPath())
     {
-        paths_searched++;
+        pathsSearched++;
         unsigned pathFlow = getResidual(parent[tgt-1],tgt);
         for(p = tgt; p != src; p = parent[p-1])
         {
@@ -91,7 +91,7 @@ bool EdmondsKarp::findPath()
 
     while(nh.occupation>0)
     {
-        expanded_verts++;
+        expandedVerts++;
         unsigned p = nh.getMin();
         unsigned value = nh.getMinValue();
         nh.deleteMin();

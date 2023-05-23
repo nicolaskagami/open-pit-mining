@@ -13,8 +13,8 @@ class EdmondsKarp
 
         bool * visited;
         unsigned * distances;
-        unsigned expanded_verts;
-        unsigned paths_searched;
+        unsigned expandedVerts;
+        unsigned pathsSearched;
 
         bool findPath();
         void printPath();
