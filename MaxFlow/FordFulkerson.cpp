@@ -40,6 +40,7 @@ unsigned FordFulkerson::getResidual(unsigned u, unsigned v)
     {
         return graph->edges[i].residual;
     }
+	    return 0;
 }
 void FordFulkerson::subResidual(unsigned u, unsigned v, unsigned subtraction)
 { 
