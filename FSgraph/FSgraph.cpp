@@ -16,6 +16,7 @@ FSgraph::FSgraph(unsigned vertNum, unsigned edgeNum)
 // Format:
 // 	1st line: width height
 //	h lines of space separated capacities
+// Preallocates and then proposes the edges
 FSgraph::FSgraph(std::istream& in)
 {
     std::string line="", dummy;
