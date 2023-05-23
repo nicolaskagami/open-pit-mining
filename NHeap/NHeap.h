@@ -1,11 +1,14 @@
+// Author: Nicolas Silveira Kagami
 
 #include<stdio.h>
 #include<stdlib.h>
 #include<iostream>
+
+// N can be defined during compilation: -DN=n
 #ifndef N
 #define N 2
 #endif
-//N is to be defined during compilation: -DN=n
+
 #define FATHER(x) (x-1)/N
 #define FIRSTSON(x) (x*N)+1
 #define INITIALSIZE 32 
@@ -35,7 +38,6 @@ class NHeap
        void print();
     private:
        unsigned resize(unsigned newCapacity);
-       void heapifyup(unsigned p);
-       void heapifydown(unsigned p);
-
+       void heapifyUp(unsigned p);
+       void heapifyDown(unsigned p);
 };

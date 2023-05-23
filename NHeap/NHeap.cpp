@@ -1,4 +1,5 @@
-
+// Author: Nicolas Silveira Kagami
+// Generic N-heap
 #include"NHeap.h"
 
 template<typename T>
@@ -6,7 +7,7 @@ NHeap<T>::NHeap()
 {
     //printf("Constructing Heap\n");
     heap = (struct node<T>*) malloc(INITIALSIZE*sizeof(struct node<T>));
-    occupation=0;
+    occupation = 0;
     capacity = INITIALSIZE;
 }
 template<typename T>
@@ -36,7 +37,7 @@ void NHeap<T>::insert(T t,unsigned key)
     {
         heap[occupation].key = key;               
         heap[occupation].element = t;               
-        heapifyup(occupation++);
+        heapifyUp(occupation++);
     } 
     else 
     {
@@ -44,7 +45,7 @@ void NHeap<T>::insert(T t,unsigned key)
         {
             heap[occupation].key = key;               
             heap[occupation].element = t;               
-            heapifyup(occupation++);
+            heapifyUp(occupation++);
         }
         else
         {
@@ -59,13 +60,13 @@ unsigned NHeap<T>::resize(unsigned newCapacity)
     heap = (struct node<T> *) realloc(heap,newCapacity*sizeof(struct node<T>));
     capacity = newCapacity;
 
-    if(heap==NULL)
+    if(heap == NULL)
         return 1;
 
     return 0;
 }
 template<typename T>
-void NHeap<T>::heapifyup(unsigned p)
+void NHeap<T>::heapifyUp(unsigned p)
 {
     while((p > 0) && (p < occupation) && (heap[FATHER(p)].key > heap[p].key))
     {
@@ -74,7 +75,7 @@ void NHeap<T>::heapifyup(unsigned p)
     }
 }
 template<typename T>
-void NHeap<T>::heapifydown(unsigned p)
+void NHeap<T>::heapifyDown(unsigned p)
 {
     unsigned smallestSon;
     unsigned smallestValue;
@@ -118,7 +119,7 @@ void NHeap<T>::deleteMin()
         heap[0] = heap[--occupation];
         if((INITIALSIZE < occupation) && (occupation < capacity/2))
             resize(capacity/2);
-        heapifydown(0);
+        heapifyDown(0);
     }
 }
 template<typename T>
@@ -129,7 +130,7 @@ void NHeap<T>::update(T t,unsigned newKey)//newKey < key!
         if(heap[i].element == t)
         {
             heap[i].key = newKey;
-            heapifyup(i);
+            heapifyUp(i);
             break;
         }
     }
