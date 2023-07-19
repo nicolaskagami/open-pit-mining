@@ -1,6 +1,5 @@
 
 #include "../FSgraph/FSgraph.h"
-#include "../NHeap/NHeap.h"
 
 class EdmondsKarp
 {

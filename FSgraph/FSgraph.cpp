@@ -1,6 +1,13 @@
 // Author: Nicolas Silveira Kagami
 // Adding findEdge and Reflexive edges with cost, or capacity in OPM
 #include "FSgraph.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<string>
+#include<iostream>
+#include<fstream>
+#include<sstream>
+#include<stack>
 
 FSgraph::FSgraph(unsigned vertNum, unsigned edgeNum)
 {

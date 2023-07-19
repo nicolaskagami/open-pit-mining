@@ -1,9 +1,4 @@
 // Author: Nicolas Silveira Kagami
-
-#include<stdio.h>
-#include<stdlib.h>
-#include<iostream>
-
 // N can be defined during compilation: -DN=n
 #ifndef N
 #define N 2

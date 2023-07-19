@@ -1,6 +1,9 @@
 // Author: Nicolas Silveira Kagami
 // Generic N-heap
 #include"NHeap.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<iostream>
 
 template<typename T>
 NHeap<T>::NHeap()

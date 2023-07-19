@@ -1,6 +1,9 @@
 //Author: Nicolas Silveira Kagami
 
 #include "EdmondsKarp.h"
+#include "../NHeap/NHeap.h"
+#include<stdlib.h>
+#include<stdio.h>
 
 EdmondsKarp::EdmondsKarp(FSgraph * g)
 {

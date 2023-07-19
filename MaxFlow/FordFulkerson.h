@@ -1,9 +1,5 @@
 
 #include "../FSgraph/FSgraph.h"
-#include<iostream>
-#include<stack>
-
-
 class FordFulkerson
 {
     public:

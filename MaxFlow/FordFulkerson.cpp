@@ -1,6 +1,8 @@
 //Author: Nicolas Silveira Kagami
 
 #include "FordFulkerson.h"
+#include<iostream>
+#include<stack>
 
 FordFulkerson::FordFulkerson(FSgraph * g)
 {

@@ -1,13 +1,7 @@
 //Author: Nicolas Silveira Kagami
 //Modified to hold local residual and global source and target
 //Modified to calculate Open Pit Mining 
-#include<stdio.h>
-#include<stdlib.h>
-#include<string>
 #include<iostream>
-#include<fstream>
-#include<sstream>
-#include<stack>
 
 typedef struct FSedge
 {
